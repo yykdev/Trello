@@ -9,18 +9,26 @@ https://docs.djangoproject.com/en/1.11/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.11/ref/settings/
 """
-
+import json
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+ROOT_DIR = os.path.dirname(BASE_DIR)
 TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
+CONFIG_SECRET_DIR = os.path.join(ROOT_DIR, '.config_secret')
+CONFIG_SECRET_COMMON_FILE = os.path.join(CONFIG_SECRET_DIR, 'settings_common.json')
+CONFIG_SECRET_DEBUG_FILE = ''
+CONFIG_SECRET_DEPLOY_FILE = ''
+
+config_secret_common = json.loads(open(CONFIG_SECRET_COMMON_FILE).read())
+
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'e58%j6r!2dz^bppffz(ss%sr9a!ppr&w3k#s7up^ycd*f5(bp^'
+SECRET_KEY = config_secret_common["django"]["secret_key"]
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
