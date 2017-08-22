@@ -1,9 +1,0 @@
-{
-  "django": {
-    "secret_key":"e58%j6r!2dz^bppffz(ss%sr9a!ppr&w3k#s7up^ycd*f5(bp^",
-    "default_user": {
-      "username": "admin",
-      "password": "1234567&"
-    }
-  }
-}
