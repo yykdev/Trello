@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'bootstrap3',
 
     'member',
+    'dashboard',
 ]
 
 MIDDLEWARE = [
