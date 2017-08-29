@@ -1,7 +1,8 @@
 from django.conf.urls import url
 from . import views
 
-urlpatterns=[
-    url(r'^$', views.team_list, name='team_list'),
-    url(r'^$', views.team_list, name='team_list'),
+app_name = 'dashboard'
+urlpatterns = [
+    url(r'^t/$', views.team_dashboard, name='team_dashboard'),
+    url(r'^c/$', views.card_dashboard, name='card_list'),
 ]

@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.db import models
 
-from dashboard.models import Team
+from . import Team
 
 
 class Board(models.Model):
