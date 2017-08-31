@@ -2,77 +2,31 @@
 
 {% block content %}
 {% load bootstrap3 static %}
-<div class="div_main_dashboard">
-    <div>
-        <h4>Starred Boards</h4>
-        <ul class="ul_main_dashboard">
-            <li><div class="div_board">test1</div></li>
-        </ul>
-    </div>
+<div class="div_main_dashboard" id="div_team_dashboard">
+    {% include 'contents/partial/partial_team_list.html' %}
+</div>
 
-    {% for team in teams %}
-    <div class="team_list">
-        <h4>{{ team.title }}</h4>
-        <ul class="ul_main_dashboard">
-        {% for board in team.board_set.all %}
-            <li>
-                <div class="div_board">
-                    <a href="{% url 'contents:dashboard_card' board_id=board.id %}">
-                        <div class="div_board">
-                            {{ board.title }}
-                        </div>
-                    </a>
-                </div>
-            </li>
-        {% endfor %}
-            <li><div class="div_newboard js-create-board" data-team_id="{{ team.id }}">Create new board...</div></li>
-        </ul>
-        <div class="modal fade" id="modal_board">
-            <div class="modal-dialog">
-                <input type="hidden" id="test_team_id" value="">
-                <div class="modal-content">
-                </div>
-            </div>
+<div>
+    <p>
+        <button type="button" class="btn btn-default js-create-team">
+          <span class="glyphicon glyphicon-plus"></span>
+          Create a new team
+        </button>
+    </p>
+    <div class="modal fade" id="modal_team">
+        <div class="modal-dialog">
+            <div class="modal-content"></div>
         </div>
     </div>
-    {% endfor %}
-    <div class="">
-        <button type="button" class="btn btn-default" data-toggle="modal" data-target="#team_modal">Create a new team</button>
-
-        <div id="team_modal" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-
-                    <form action="" method="post">
-                        {% csrf_token %}
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title" id="myModalLabel">Create a new team</h4>
-                        </div>
-                        <div class="modal-body">
-                            {% bootstrap_form form %}
-                            <hr>
-                            <div>
-                                <p>A team is a group of boards and people.</p>
-                                <p>It helps keep your company, team, or family organized.</p>
-                                <p>Business Class gives your team more security, administrative controls, and superpowers.</p>
-                                <p>Learn More.</p>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Save</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
+    <div class="modal fade" id="modal_board">
+        <div class="modal-dialog">
+            <div class="modal-content"></div>
         </div>
     </div>
 </div>
 
-
 {% endblock %}
 
 {% block jquery %}
-    <script src="{% static 'js/test.js' %}"></script>
+    <script src="{% static 'js/team_dashboard.js' %}"></script>
 {% endblock %}

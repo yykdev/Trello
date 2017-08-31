@@ -1,6 +1,10 @@
+from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
 
 # Create your views here.
+from django.template.loader import render_to_string
+
 from dashboard.forms import BoardForm, CardListForm, CardForm
 from dashboard.models import Board, CardList
 from dashboard.models.cards import Card
@@ -8,51 +12,81 @@ from .models import Team
 from .forms.team_forms import TeamsForm
 
 
+@login_required
 def team_dashboard(request):
-    if request.method == 'POST':
-        form = TeamsForm(data=request.POST)
-        if form.is_valid():
-            form.save(author=request.user)
-    else:
-        form = TeamsForm()
     teams = Team.objects.filter(author=request.user)
     context = {
         'teams': teams,
-        'form': form,
     }
     return render(request, 'contents/team_dashboard.html', context=context)
 
 
-def team_make(request):
+# 팀생성 모달 렌더링 함수
+def team_create_modal(request):
+    data = {}
     if request.method == 'POST':
-        forms = TeamsForm(request.data)
-        if forms.is_valid():
-            forms.save(commit=False)
-            forms.author = request.user
-            forms.save()
+        form = TeamsForm(data=request.POST)
+        if form.is_valid():
+            form.save(author=request.user)
+            data['form_is_valid'] = True
+            teams = Team.objects.filter(author=request.user)
+            context = {
+                'teams': teams,
+            }
+            data['html_team_list'] = render_to_string(
+                'contents/partial/partial_team_list.html',
+                context=context,
+                request=request,
+            )
+        else:
+            data['form_is_valid'] = False
     else:
-        forms = TeamsForm()
+        form = TeamsForm()
     context = {
-        'forms': forms
+        'form': form,
     }
-    return render(request, '', context=context)
+    data['html_form'] = render_to_string(
+        'contents/modal/team_modal.html',
+        context=context,
+        request=request,
+    )
+    return JsonResponse(data)
 
 
+@login_required
 def board_make(request, team_id):
+    data = {}
     if request.method == 'POST':
-        forms = BoardForm(request.data)
-        if forms.is_valid():
-            team = Team.objects.get(pk=team_id)
-            forms.save(commit=False)
-            forms.author = request.user
-            forms.team = team
-            forms.save()
+        form = BoardForm(request.POST)
+        if form.is_valid():
+            form.save(author=request.user, team_id=team_id)
+            data['form_is_valid'] = True
+            teams = Team.objects.filter(author=request.user)
+            context = {
+                'teams': teams,
+            }
+            data['html_team_list'] = render_to_string(
+                'contents/partial/partial_team_list.html',
+                context=context,
+                request=request,
+            )
     else:
-        forms = BoardForm()
+        form = BoardForm()
     context = {
-        'forms': forms
+        'team_id': team_id,
+        'form': form,
     }
-    return render(request, '', context=context)
+    data['html_form'] = render_to_string(
+        'contents/modal/board_modal.html',
+        context=context,
+        request=request,
+    )
+    return JsonResponse(data)
+
+
+
+
+
 
 
 def card_dashboard(request, board_id):
@@ -89,7 +123,7 @@ def card_make(request, cardlist_id):
         if forms.is_valid():
             cardlist = CardList.objects.get(pk=cardlist_id)
             forms.save(commit=False)
-            forms.cardlist=cardlist_id
+            forms.cardlist = cardlist_id
             forms.save()
     else:
         forms = CardForm()

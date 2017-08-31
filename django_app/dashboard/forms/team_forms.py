@@ -1,24 +1,24 @@
 from django import forms
+from django.conf import settings
 
 from dashboard.models import Team
 
 
 class TeamsForm(forms.ModelForm):
-    # author = forms.CharField(
-    #     required=True
-    # )
     title = forms.CharField(
-        required=True
+        required=True,
     )
     description = forms.Textarea()
-    # members = forms.CharField(
-    #     required=False
-    # )
 
     class Meta:
         model = Team
         fields = (
-            'author',
             'title',
             'description',
         )
+
+    def save(self, **kwargs):
+        author = kwargs.pop('author', None)
+        if not self.instance.pk or isinstance(author, settings.AUTH_USER_MODEL):
+            self.instance.author = author
+            super().save()

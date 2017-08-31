@@ -1,19 +1,12 @@
 {% load bootstrap3 %}
-<form action="{% url 'dashboard:team_create_modal' %}" method="post" class="js-create-team-form">
+<form action="{% url 'dashboard:board_create_modal' team_id %}" method="post" class="js-create-board-form">
     {% csrf_token %}
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Create a new team</h4>
+        <h4 class="modal-title" id="myModalLabel">Create Board</h4>
     </div>
     <div class="modal-body">
         {% bootstrap_form form %}
-        <hr>
-        <div>
-            <p>A team is a group of boards and people.</p>
-            <p>It helps keep your company, team, or family organized.</p>
-            <p>Business Class gives your team more security, administrative controls, and superpowers.</p>
-            <p>Learn More.</p>
-        </div>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

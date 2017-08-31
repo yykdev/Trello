@@ -1,0 +1,27 @@
+{% load static %}
+<div>
+    <h4>Starred Boards</h4>
+    <ul class="ul_main_dashboard">
+        <li><div class="div_board">test1</div></li>
+    </ul>
+</div>
+
+{% for team in teams %}
+<div class="team_list">
+    <h4>{{ team.title }}</h4>
+    <ul class="ul_main_dashboard">
+    {% for board in team.board_set.all %}
+        <li>
+            <div class="div_board js-create-board">
+                    <div class="div_board">
+                        {{ board.title }}
+                    </div>
+            </div>
+        </li>
+    {% endfor %}
+        <li><div class="div_newboard js-create-board" data-team_id="{{ team.id }}">Create new board...</div></li>
+    </ul>
+</div>
+{% endfor %}
+
+<script src="{% static 'js/partial_team_list.js' %}"></script>
