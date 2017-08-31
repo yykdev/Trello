@@ -1,0 +1,40 @@
+{% extends 'common/base.html' %}
+
+{% block content %}
+{% load bootstrap3 static %}
+
+<div class="container_top">
+    <div>
+        <h2 id="nav-breadcrumbs">{{ board.title }}</h2>
+        <div class="bs-component">
+            <ul class="breadcrumb">
+                <li>{{ board.team.title }}</li>
+                <li class="active">{{ board.title }}</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="container_bottom">
+    {% include 'contents/partial/partial_card_list.html' %}
+</div>
+
+
+<div>
+    <div class="modal fade" id="modal_card_list">
+        <div class="modal-dialog">
+            <div class="modal-content"></div>
+        </div>
+    </div>
+    <div class="modal fade" id="modal_card">
+        <div class="modal-dialog">
+            <div class="modal-content"></div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block jquery %}
+    <script src="{% static 'js/card_dashboard.js' %}"></script>
+{% endblock %}

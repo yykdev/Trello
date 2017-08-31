@@ -1,0 +1,26 @@
+{% load static %}
+{% for cardlist in cardlists %}
+<div class="card_set">
+    <div class="card_list_header">{{ cardlist.title }}</div>
+    <div class="card_list" id="div{{ cardlist.pk }}" data-list_id="{{ cardlist.pk }}">
+        {% for card in cardlist.card_set.all %}
+            <div class="card_list_content" id="{{ card.pk }}">{{ card.title }}</div>
+        {% endfor %}
+    </div>
+    <div class="card_list_footer" id='footer{{ cardlist.pk }}' name='card_list_footer{{ cardlist.pk }}'>Add a card...</div>
+</div>
+{% endfor %}
+
+<div class="card_list_add" id="card_list_add" style="display: inline-block;">
+    <div id="create_list_btn2">
+        <button type="button" class="btn btn-default js-create-cardlist" style="width: 230px;margin-top: 10px" data-board_id="{{ board.id }}">
+          <span class="glyphicon glyphicon-plus"></span>
+          Add a list...
+        </button>
+    </div>
+    <div class="create_list_form" style="width: 200px;border: 1px; border-color: black;">
+
+    </div>
+</div>
+
+<script src="{% static 'js/partial_card_list.js' %}"></script>

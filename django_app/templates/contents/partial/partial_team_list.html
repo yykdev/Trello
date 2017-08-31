@@ -12,10 +12,12 @@
     <ul class="ul_main_dashboard">
     {% for board in team.board_set.all %}
         <li>
-            <div class="div_board js-create-board">
+            <div class="div_board js-detail-board">
+                <a href="{% url 'dashboard:card_list' board.id %}">
                     <div class="div_board">
                         {{ board.title }}
                     </div>
+                </a>
             </div>
         </li>
     {% endfor %}

@@ -84,37 +84,33 @@ def board_make(request, team_id):
     return JsonResponse(data)
 
 
-
-
-
-
-
 def card_dashboard(request, board_id):
-    board = Board.objcets.get(pk=board_id)
+    board = Board.objects.get(pk=board_id)
     cardlists = CardList.objects.filter(board=board)
     context = {
-        'board_title': board.title,
-        'team_title': board.team.title,
-        'board_id': board_id,
+        'board': board,
         'cardlists': cardlists,
     }
-    return render(request, '', context=context)
+    return render(request, 'contents/card_dashboard.html', context=context)
 
 
 def card_list_make(request, board_id):
+    print(request.method, board_id)
+    data = {}
     if request.method == 'POST':
-        forms = CardListForm(request.data)
-        if forms.is_valid():
-            board = Board.objects.get(pk=board_id)
-            forms.save(commit=False)
-            forms.board = board
-            forms.save()
+        pass
     else:
-        forms = CardListForm()
+        form = CardListForm()
     context = {
-        'forms': forms,
+        'form': form,
+        'board_id': board_id,
     }
-    render(request, '', context=context)
+    data['html_form'] = render_to_string(
+        'contents/partial/partial_card_list_make.html',
+        context=context,
+        request=request,
+    )
+    return JsonResponse(data)
 
 
 def card_make(request, cardlist_id):
