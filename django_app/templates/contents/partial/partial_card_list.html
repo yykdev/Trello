@@ -1,19 +1,25 @@
 {% load static %}
 {% for cardlist in cardlists %}
-<div class="card_set">
-    <div class="card_list_header">{{ cardlist.title }}</div>
-    <div class="card_list" id="div{{ cardlist.pk }}" data-list_id="{{ cardlist.pk }}">
+<div class="panel panel-default" style="width: 230px;vertical-align: top;display: inline-block;">
+    <div class="panel-heading">
+        <h3 class="panel-title">{{ cardlist.title }}</h3>
+    </div>
+    <div class="panel-body">
         {% for card in cardlist.card_set.all %}
-            <div class="card_list_content" id="{{ card.pk }}">{{ card.title }}</div>
+            {% if forloop.last %}
+                <div class="well" style="margin-bottom: 0px;">{{ card.title }}</div>
+            {% else %}
+                <div class="well" style="margin-bottom: 20px;">{{ card.title }}</div>
+            {% endif %}
         {% endfor %}
     </div>
-    <div class="card_list_footer" id='footer{{ cardlist.pk }}' name='card_list_footer{{ cardlist.pk }}'>Add a card...</div>
+    <div class="panel-footer">Panel footer</div>
 </div>
 {% endfor %}
 
 <div class="card_list_add" id="card_list_add" style="display: inline-block;">
     <div id="create_list_btn2">
-        <button type="button" class="btn btn-default js-create-cardlist" style="width: 230px;margin-top: 10px" data-board_id="{{ board.id }}">
+        <button type="button" class="btn btn-default js-create-cardlist" style="width: 230px;" data-board_id="{{ board.id }}">
           <span class="glyphicon glyphicon-plus"></span>
           Add a list...
         </button>
