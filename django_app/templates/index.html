@@ -2,6 +2,23 @@
 {% load bootstrap3 %}
 
 {% block content %}
+<div class="bs-component">
+  <div class="jumbotron">
     <h1>Welcome to Trello!!!!</h1>
-    <a href="{% url 'dashboard:team_dashboard' %}" class="btn btn-primary">Team Board로 이동</a>
+    <p>
+      <h3>
+        <ul>
+            <li>Python / Dajango</li>
+            <li>Bootstrap</li>
+            <li>Jquery</li>
+            <li>Ajax</li>
+            <li>AWS</li>
+            <li>PostgreSQL</li>
+            <li>Docker</li>
+        </ul>
+      </h3>
+    </p>
+    <p><a href="{% url 'dashboard:team_dashboard' %}" class="btn btn-primary btn-lg">Team Board로 이동</a></p>
+  </div>
+</div>
 {% endblock %}
