@@ -1,13 +1,13 @@
-from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth import authenticate
 from django import forms
 
 
-class LoginForm(AuthenticationForm):
+class LoginForm(forms.Form):
     username = forms.CharField(
         max_length=30,
         widget=forms.TextInput(
             attrs={
-                'placeholder': '이메일을 입력하세요.',
+                'placeholder': '사용자 아이디를 입력하세요.',
             }
         )
     )
@@ -20,3 +20,18 @@ class LoginForm(AuthenticationForm):
             }
         )
     )
+
+    def clean(self):
+        username = self.cleaned_data.get('username')
+        password = self.cleaned_data.get('password')
+        user = authenticate(
+            username=username,
+            password=password
+        )
+        if user is not None:
+            self.cleaned_data['user'] = user
+        else:
+            raise forms.ValidationError(
+                'Login credentials not valid'
+            )
+        return self.cleaned_data
