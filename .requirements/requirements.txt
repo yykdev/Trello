@@ -1,5 +1,4 @@
 appnope==0.1.0
-awsebcli==3.10.4
 blessed==1.14.2
 boto3==1.4.4
 botocore==1.5.86
