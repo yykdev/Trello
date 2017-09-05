@@ -1,7 +1,7 @@
 from django import forms
 from django.conf import settings
 
-from dashboard.models import Board, Team
+from dashboard.models import Board, Team, CardList
 
 
 class BoardForm(forms.ModelForm):
@@ -18,8 +18,16 @@ class BoardForm(forms.ModelForm):
     def save(self, **kwargs):
         author = kwargs.pop('author', None)
         team_id = kwargs.pop('team_id', None)
+        title = self.cleaned_data['title']
         team = Team.objects.get(pk=team_id)
-        if not self.instance.pk or isinstance(author, settings.AUTH_USER_MODEL):
-            self.instance.author = author
-            self.instance.team = team
-            super().save()
+        board, created = Board.objects.get_or_create(
+            author=author,
+            team=team,
+            title=title,
+        )
+        print(board, created)
+        if created:
+            CardList.objects.create(
+                title='To-Do',
+                board=board
+            )

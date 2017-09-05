@@ -23,6 +23,7 @@ def login(request):
     return render(request, 'member/log_in.html', context=context)
 
 
+@login_required
 def logout(request):
     django_logout(request)
     return redirect('index')

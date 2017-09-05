@@ -17,6 +17,7 @@ def team_dashboard(request):
     teams = Team.objects.filter(author=request.user)
     context = {
         'teams': teams,
+        'search_on': True,
     }
     return render(request, 'contents/team_dashboard.html', context=context)
 
@@ -90,6 +91,7 @@ def card_dashboard(request, board_id):
     context = {
         'board': board,
         'cardlists': cardlists,
+        'search_on': True,
     }
     return render(request, 'contents/card_dashboard.html', context=context)
 
