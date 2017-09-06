@@ -15,5 +15,10 @@ class Board(models.Model):
     title = models.CharField(
         max_length=50,
     )
+    cover_img = models.ImageField(
+        upload_to='contents/board/%Y%m%d',
+        null=True,
+        blank=True,
+    )
     updated_date = models.DateTimeField(auto_now=True)
     created_date = models.DateTimeField(auto_now_add=True)
