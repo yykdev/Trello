@@ -1,5 +1,5 @@
 {% load bootstrap3 %}
-<form action="{% url 'dashboard:team_create_modal' %}" method="post" class="js-create-team-form">
+<form action="{% url 'dashboard:team_create_modal' %}" method="post" class="js-create-team-form" data-team_id="{{ team_id }}">
     {% csrf_token %}
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>

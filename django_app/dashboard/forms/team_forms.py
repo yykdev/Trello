@@ -1,7 +1,10 @@
 from django import forms
 from django.conf import settings
+from django.contrib.auth import get_user_model
 
 from dashboard.models import Team
+
+Member = get_user_model()
 
 
 class TeamsForm(forms.ModelForm):
@@ -19,6 +22,6 @@ class TeamsForm(forms.ModelForm):
 
     def save(self, **kwargs):
         author = kwargs.pop('author', None)
-        if not self.instance.pk or isinstance(author, settings.AUTH_USER_MODEL):
+        if not self.instance.pk or isinstance(author, Member):
             self.instance.author = author
-            super().save()
+        super().save(**kwargs)

@@ -54,6 +54,37 @@ def team_create_modal(request):
     return JsonResponse(data)
 
 
+def team_modify_modal(request, team_id):
+    data = {}
+    team = Team.objects.get(pk=team_id)
+    if request.method == 'POST':
+        form = TeamsForm(data=request.POST, files=request.FILES, instance=team)
+        form.save(author=request.user)
+        data['form_is_valid'] = True
+        teams = Team.objects.filter(author=request.user)
+        context = {
+            'team_id': team_id,
+            'teams': teams,
+        }
+        data['html_team_list'] = render_to_string(
+            'contents/partial/partial_team_list.html',
+            context=context,
+            request=request,
+        )
+    else:
+        form = TeamsForm(instance=team)
+    context = {
+        'team_id': team_id,
+        'form': form,
+    }
+    data['html_form'] = render_to_string(
+        'contents/modal/team_modal.html',
+        context=context,
+        request=request,
+    )
+    return JsonResponse(data)
+
+
 @login_required
 def board_make(request, team_id):
     data = {}

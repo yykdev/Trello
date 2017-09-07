@@ -5,6 +5,7 @@ app_name = 'dashboard'
 urlpatterns = [
     url(r'^t/$', views.team_dashboard, name='team_dashboard'),
     url(r'^t/create/$', views.team_create_modal, name='team_create_modal'),
+    url(r'^t/modify/(?P<team_id>\d+)/$', views.team_modify_modal, name='team_modify_modal'),
 
     url(r'^b/create/(?P<team_id>\d+)/$', views.board_make, name='board_create_modal'),
 

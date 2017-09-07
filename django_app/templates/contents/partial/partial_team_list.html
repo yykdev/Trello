@@ -8,7 +8,12 @@
 
 {% for team in teams %}
 <div class="team_list">
-    <h3><i class="glyphicon glyphicon-briefcase" style="margin-right: 10px;"></i>{{ team.title }}</h3>
+    <h3>
+        <i class="glyphicon glyphicon-briefcase" style="margin-right: 10px;"></i>{{ team.title }}
+        <button type="button" class="btn btn-default js-modify-team" data-team_id="{{ team.id }}">
+          수정
+        </button>
+    </h3>
     <div class="row">
         {% for board in team.board_set.all %}
         <div class="col-md-3">
