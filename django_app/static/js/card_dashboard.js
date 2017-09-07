@@ -26,6 +26,8 @@ $( function() {
 
 
 
+
+
     // $('.card_list').sortable({
     //     connectWith: '.card_list',
     //     update: function(event, div) {

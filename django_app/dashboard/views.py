@@ -96,11 +96,28 @@ def card_dashboard(request, board_id):
     return render(request, 'contents/card_dashboard.html', context=context)
 
 
+@login_required
 def card_list_make(request, board_id):
-    print(request.method, board_id)
+    print('card_list_make', request.method, board_id)
     data = {}
     if request.method == 'POST':
-        pass
+        form = CardListForm(request.POST)
+        print(form)
+        if form.is_valid():
+            form.save(board_id=board_id)
+            data['form_is_valid'] = True
+            board = Board.objects.get(pk=board_id)
+            cardlists = CardList.objects.filter(board=board)
+            context = {
+                'board': board,
+                'cardlists': cardlists,
+                'search_on': True,
+            }
+            data['html_cardlist_list'] = render_to_string(
+                'contents/partial/partial_card_list.html',
+                context=context,
+                request=request,
+            )
     else:
         form = CardListForm()
     context = {
@@ -108,7 +125,7 @@ def card_list_make(request, board_id):
         'board_id': board_id,
     }
     data['html_form'] = render_to_string(
-        'contents/partial/partial_card_list_make.html',
+        'contents/modal/card_list_modal.html',
         context=context,
         request=request,
     )

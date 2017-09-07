@@ -1,24 +1,44 @@
 {% extends 'common/base.html' %}
-{% load bootstrap3 %}
+{% load bootstrap3 static %}
 
 {% block content %}
 <div class="bs-component">
-  <div class="jumbotron">
-    <h1>Welcome to Trello!!!!</h1>
-    <p>
-      <h3>
-        <ul>
-            <li>Python / Dajango</li>
-            <li>Bootstrap</li>
-            <li>Jquery</li>
-            <li>Ajax</li>
-            <li>AWS</li>
-            <li>PostgreSQL</li>
-            <li>Docker</li>
-        </ul>
-      </h3>
-    </p>
-    <p><a href="{% url 'dashboard:team_dashboard' %}" class="btn btn-primary btn-lg">Team Board로 이동</a></p>
-  </div>
+    <div class="jumbotron">
+        <h1>Welcome to Trello!!!!</h1>
+        <hr>
+        <p><a href="{% url 'dashboard:team_dashboard' %}" class="btn btn-primary btn-lg">Team Board로 이동</a></p>
+    </div>
+</div>
+{% endblock %}
+
+{% block sub_content %}
+<div style="background-color:#7C8FD3;padding: 40px 0 40px 0;">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="bs-component">
+                    <img src="{% static 'images/stack_info.jpg' %}" style="width: 100%;" alt="">
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="bs-component">
+                    <div style="vertical-align: middle;color: #ffffff">
+                        <h1><strong>Stack</strong></h1>
+                        <h3>
+                            <ul>
+                                <li style="margin-top: 20px;">Python / Dajango</li>
+                                <li style="margin-top: 20px;">Bootstrap</li>
+                                <li style="margin-top: 20px;">Jquery</li>
+                                <li style="margin-top: 20px;">Ajax</li>
+                                <li style="margin-top: 20px;">AWS Elastic Beanstalk / S3 / RDS</li>
+                                <li style="margin-top: 20px;">PostgreSQL</li>
+                                <li style="margin-top: 20px;">Docker</li>
+                            </ul>
+                        </h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock %}

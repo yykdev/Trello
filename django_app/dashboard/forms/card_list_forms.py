@@ -8,7 +8,6 @@ class CardListForm(forms.ModelForm):
         model = CardList
         fields = (
             'title',
-            'board',
         )
 
     def save(self, **kwargs):

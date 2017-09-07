@@ -14,6 +14,6 @@ $(function () {
                 $("#modal_board .modal-content").html(data.html_form);
             }
         })
-    })
+    });
 
 });
