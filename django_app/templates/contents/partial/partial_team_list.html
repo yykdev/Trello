@@ -9,7 +9,7 @@
 {% for team in teams %}
 <div class="team_list">
     <h3><i class="glyphicon glyphicon-briefcase" style="margin-right: 10px;"></i>{{ team.title }}</h3>
-    <div>class="row">
+    <div class="row">
         {% for board in team.board_set.all %}
         <div class="col-md-3">
             <div class="bs-component">
