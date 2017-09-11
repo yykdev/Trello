@@ -4,13 +4,9 @@
     <div class="panel-heading">
         <h3 class="panel-title">{{ cardlist.title }}</h3>
     </div>
-    <div class="panel-body">
+    <div class="panel-body card_list_body" data-board_id="{{ board.pk }}" data-list_id="{{ cardlist.pk }}">
         {% for card in cardlist.card_set.all %}
-            {% if forloop.last %}
-                <div class="well" style="margin-bottom: 0px;">{{ card.title }}</div>
-            {% else %}
-                <div class="well" style="margin-bottom: 20px;">{{ card.title }}</div>
-            {% endif %}
+            <div class="well" style="margin-bottom:{% if forloop.last %}0px{% else %}20px{% endif %};" id="{{ card.pk }}">{{ card.title }}</div>
         {% endfor %}
     </div>
     <div>

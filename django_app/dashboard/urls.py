@@ -11,4 +11,5 @@ urlpatterns = [
 
     url(r'^c/(?P<board_id>\d+)/$', views.card_dashboard, name='card_list'),
     url(r'^c/create/(?P<board_id>\d+)/$', views.card_list_make, name='card_list_make'),
+    url(r'^c/move/(?P<board_id>\d+)/$', views.update_card_position, name='card_move'),
 ]

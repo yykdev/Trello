@@ -14,4 +14,4 @@ class CardListForm(forms.ModelForm):
         board_id = kwargs.pop('board_id', None)
         board = Board.objects.get(pk=board_id)
         self.instance.board = board
-        super().save()
+        super().save(**kwargs)

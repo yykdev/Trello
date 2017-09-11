@@ -129,7 +129,6 @@ def card_dashboard(request, board_id):
 
 @login_required
 def card_list_make(request, board_id):
-    print('card_list_make', request.method, board_id)
     data = {}
     if request.method == 'POST':
         form = CardListForm(request.POST)
@@ -164,19 +163,35 @@ def card_list_make(request, board_id):
 
 
 def card_make(request, cardlist_id):
+    data = {}
     if request.method == 'POST':
         forms = CardForm(request.data)
         if forms.is_valid():
-            cardlist = CardList.objects.get(pk=cardlist_id)
-            forms.save(commit=False)
-            forms.cardlist = cardlist_id
-            forms.save()
+            forms.save(cardlist_id=cardlist_id)
+            data['form_is_valid'] = True
+            board = Board.objects.get(pk=1)
+            cardlists = CardList.objects.filter(board=board)
+            context = {
+                'board': board,
+                'cardlists': cardlists,
+                'search_on': True,
+            }
+            data['html_cardlist_list'] = render_to_string(
+                'contents/partial/partial_card_list.html',
+                context=context,
+                request=request,
+            )
     else:
         forms = CardForm()
     context = {
         'forms': forms,
     }
-    return render(request, '', context=context)
+    data['html_form'] = render_to_string(
+        'contents/modal/card_modal.html',
+        context=context,
+        request=request,
+    )
+    return JsonResponse(data)
 
 
 def update_card_position(request, board_id):
@@ -185,9 +200,10 @@ def update_card_position(request, board_id):
         cards = eval(request.body.decode("utf-8"))
         list_id = cards['list_id']
         positions = cards['positions'].split(';')
+        print(list_id, positions)
         if positions[0] != '':
             card_list = Card.objects.filter(pk__in=positions)
             card_list.update(cardlist=list_id)
-        return redirect('contents:dashboard_card', board_id=board_id)
+        return redirect('dashboard:card_list', board_id=board_id)
     else:
-        return redirect('contents:dashboard_card', board_id=board_id)
+        return redirect('dashboard:card_list', board_id=board_id)
