@@ -1,35 +1,38 @@
 {% extends 'common/base.html' %}
+{% load bootstrap3 static %}
 
 {% block content %}
-{% load bootstrap3 static %}
-<div class="div_main_dashboard" id="div_team_dashboard">
-    {% include 'contents/partial/partial_team_list.html' %}
-</div>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="div_main_dashboard" id="div_team_dashboard">
+            {% include 'contents/partial/partial_team_list.html' %}
+        </div>
 
-<div>
-    <p>
-        <button type="button" class="btn btn-default js-create-team" style="margin-top: 20px;">
-          <span class="glyphicon glyphicon-plus"></span>
-          Create a new team
-        </button>
-    </p>
-    <div class="modal fade" id="modal_create_team">
-        <div class="modal-dialog">
-            <div class="modal-content"></div>
-        </div>
-    </div>
-    <div class="modal fade" id="modal_board">
-        <div class="modal-dialog">
-            <div class="modal-content"></div>
-        </div>
-    </div>
-    <div class="modal fade" id="modal_modify_team">
-        <div class="modal-dialog">
-            <div class="modal-content"></div>
+        <div>
+            <p>
+                <button type="button" class="btn btn-default js-create-team" style="margin-top: 20px;">
+                  <span class="glyphicon glyphicon-plus"></span>
+                  Create a new team
+                </button>
+            </p>
+            <div class="modal fade" id="modal_create_team">
+                <div class="modal-dialog">
+                    <div class="modal-content"></div>
+                </div>
+            </div>
+            <div class="modal fade" id="modal_board">
+                <div class="modal-dialog">
+                    <div class="modal-content"></div>
+                </div>
+            </div>
+            <div class="modal fade" id="modal_modify_team">
+                <div class="modal-dialog">
+                    <div class="modal-content"></div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
-
 {% endblock %}
 
 {% block jquery %}

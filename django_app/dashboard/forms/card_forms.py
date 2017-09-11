@@ -1,6 +1,6 @@
 from django import forms
 
-from dashboard.models import CardList, Card
+from dashboard.models import CardList, Card, Board
 
 
 class CardForm(forms.ModelForm):
@@ -9,11 +9,17 @@ class CardForm(forms.ModelForm):
         fields = (
             'title',
             'description',
-            'cardlist',
         )
 
     def save(self, **kwargs):
-        cardlist_id = kwargs.get('cardlist_id', None)
+        cardlist_id = kwargs.pop('cardlist_id', None)
+        title = self.cleaned_data['title']
+        description = self.cleaned_data['description']
         cardlist = CardList.objects.get(pk=cardlist_id)
-        self.instance.cardlist = cardlist
-        super().save(**kwargs)
+        Card.objects.create(
+            title=title,
+            description=description,
+            cardlist=cardlist,
+            board=cardlist.board,
+        )
+        return cardlist.board.id

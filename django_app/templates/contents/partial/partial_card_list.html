@@ -1,16 +1,16 @@
 {% load static %}
 {% for cardlist in cardlists %}
-<div class="panel panel-default" style="width: 230px;vertical-align: top;display: inline-block;">
+<div class="panel panel-default" style="width: 230px;vertical-align: top;display: inline-block;margin-right:10px;">
     <div class="panel-heading">
         <h3 class="panel-title">{{ cardlist.title }}</h3>
     </div>
-    <div class="panel-body card_list_body" data-board_id="{{ board.pk }}" data-list_id="{{ cardlist.pk }}">
+    <div class="panel-body card_list_body" data-board_id="{{ board.pk }}" data-list_id="{{ cardlist.pk }}" style="padding-bottom: 0px;{% if not cardlist.card_set %}height: 100px;{% endif %}">
         {% for card in cardlist.card_set.all %}
-            <div class="well" style="margin-bottom:{% if forloop.last %}0px{% else %}20px{% endif %};" id="{{ card.pk }}">{{ card.title }}</div>
+            <div class="well" style="margin-bottom:20px;" id="{{ card.pk }}">{{ card.title }}</div>
         {% endfor %}
     </div>
     <div>
-        <button type="button" class="btn btn-default btn-sm js-create-card" style="width: 100%;" data-board_id="{{ cardlist.id }}">
+        <button type="button" class="btn btn-default btn-sm js-create-card" style="width: 100%;" data-cardlist_id="{{ cardlist.pk }}">
           <span class="glyphicon glyphicon-plus"></span>
           Add a card...
         </button>
@@ -26,5 +26,7 @@
         </button>
     </div>
 </div>
+
+
 
 <script src="{% static 'js/partial_card_list.js' %}"></script>

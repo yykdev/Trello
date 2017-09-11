@@ -132,7 +132,6 @@ def card_list_make(request, board_id):
     data = {}
     if request.method == 'POST':
         form = CardListForm(request.POST)
-        print(form)
         if form.is_valid():
             form.save(board_id=board_id)
             data['form_is_valid'] = True
@@ -162,14 +161,15 @@ def card_list_make(request, board_id):
     return JsonResponse(data)
 
 
+@login_required
 def card_make(request, cardlist_id):
     data = {}
     if request.method == 'POST':
-        forms = CardForm(request.data)
-        if forms.is_valid():
-            forms.save(cardlist_id=cardlist_id)
+        form = CardForm(request.POST)
+        if form.is_valid():
+            board_id = form.save(cardlist_id=cardlist_id)
             data['form_is_valid'] = True
-            board = Board.objects.get(pk=1)
+            board = Board.objects.get(pk=board_id)
             cardlists = CardList.objects.filter(board=board)
             context = {
                 'board': board,
@@ -182,9 +182,10 @@ def card_make(request, cardlist_id):
                 request=request,
             )
     else:
-        forms = CardForm()
+        form = CardForm()
     context = {
-        'forms': forms,
+        'cardlist_id': cardlist_id,
+        'form': form,
     }
     data['html_form'] = render_to_string(
         'contents/modal/card_modal.html',
@@ -194,13 +195,13 @@ def card_make(request, cardlist_id):
     return JsonResponse(data)
 
 
+@login_required
 def update_card_position(request, board_id):
     if request.method == 'POST':
         # 카드별 카드리스트 id 값 업데이트
         cards = eval(request.body.decode("utf-8"))
         list_id = cards['list_id']
         positions = cards['positions'].split(';')
-        print(list_id, positions)
         if positions[0] != '':
             card_list = Card.objects.filter(pk__in=positions)
             card_list.update(cardlist=list_id)
