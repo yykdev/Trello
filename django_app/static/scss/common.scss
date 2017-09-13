@@ -1,5 +1,15 @@
 @import "variables";
 
+html, body {
+    height: 100%;
+}
+
+div.container {
+    div.container_bottom {
+        height: 100%;
+    }
+}
+
 a {
     text-decoration: none !important;
     color: #2c3e50;
