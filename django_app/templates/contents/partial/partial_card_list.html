@@ -7,7 +7,7 @@
     </div>
     <div class="panel-body card_list_body" data-board_id="{{ board.pk }}" data-list_id="{{ cardlist.pk }}" style="padding-bottom: 0px;{% if not cardlist.card_set %}height: 100px;{% endif %}">
         {% for card in cardlist.card_set.all %}
-            <div class="well" style="margin-bottom:20px;" id="{{ card.pk }}">{{ card.title }}</div>
+            <div class="well js-detail-card" data-card_id="{{ card.pk }}" style="margin-bottom:20px;cursor: pointer;" id="{{ card.pk }}">{{ card.title }}</div>
         {% endfor %}
     </div>
     <div>

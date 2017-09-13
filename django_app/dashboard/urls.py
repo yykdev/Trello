@@ -13,4 +13,5 @@ urlpatterns = [
     url(r'^cl/create/(?P<board_id>\d+)/$', views.card_list_make, name='card_list_make'),
     url(r'^c/move/(?P<board_id>\d+)/$', views.update_card_position, name='card_move'),
     url(r'^c/create/(?P<cardlist_id>\d+)/$', views.card_make, name='card_make'),
+    url(r'c/detail/(?P<card_id>\d+)/$', views.card_detail, name='card_detail'),
 ]

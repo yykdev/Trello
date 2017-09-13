@@ -188,7 +188,43 @@ def card_make(request, cardlist_id):
         'form': form,
     }
     data['html_form'] = render_to_string(
-        'contents/modal/card_modal.html',
+        'contents/modal/card_create_modal.html',
+        context=context,
+        request=request,
+    )
+    return JsonResponse(data)
+
+
+@login_required
+def card_detail(request, card_id):
+    data = {}
+    card = Card.objects.get(pk=card_id)
+    if request.method == 'POST':
+        form = CardForm(request.POST)
+        if form.is_valid():
+            # board_id = form.save(cardlist_id=cardlist_id)
+            # data['form_is_valid'] = True
+            # board = Board.objects.get(pk=board_id)
+            # cardlists = CardList.objects.filter(board=board)
+            # context = {
+            #     'board': board,
+            #     'cardlists': cardlists,
+            #     'search_on': True,
+            # }
+            # data['html_cardlist_list'] = render_to_string(
+            #     'contents/partial/partial_card_list.html',
+            #     context=context,
+            #     request=request,
+            # )
+            pass
+    else:
+        form = CardForm(instance=card)
+    context = {
+        'card_id': card_id,
+        'form': form,
+    }
+    data['html_form'] = render_to_string(
+        'contents/modal/card_detail_modal.html',
         context=context,
         request=request,
     )

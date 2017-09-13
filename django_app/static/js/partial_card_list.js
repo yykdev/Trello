@@ -25,8 +25,22 @@ $(function () {
             type: 'get',
             dataType: 'json',
             success: function (data) {
-                $("#modal_card").modal("show");
-                $("#modal_card .modal-content").html(data.html_form);
+                $("#modal_card_create").modal("show");
+                $("#modal_card_create .modal-content").html(data.html_form);
+            }
+        })
+    });
+
+    // 카드 디테일 오픈
+    $(".js-detail-card").click(function() {
+        var card_id = $(this).data('card_id');
+        $.ajax({
+            url: '/dashboard/c/detail/'+card_id+'/',
+            type: 'get',
+            dataType: 'json',
+            success: function (data) {
+                $("#modal_card_detail").modal("show");
+                $("#modal_card_detail .modal-content").html(data.html_form);
             }
         })
     });

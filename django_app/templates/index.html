@@ -2,11 +2,11 @@
 {% load bootstrap3 static %}
 
 {% block content %}
-<div class="bs-component">
-    <div class="jumbotron" style="margin-top: 30px;">
-        <h1>Welcome to Trello!!!!</h1>
+<div class="bs-component" style="height: 100%;display:flex;align-items:center;">
+    <div class="jumbotron" style="width: 100%;height: 70%;">
+        <div><h1>Welcome to Trello!!!!</h1></div>
         <hr>
-        <p><a href="{% url 'dashboard:team_dashboard' %}" class="btn btn-primary btn-lg">Team Board로 이동</a></p>
+        <div style="height:50%;display:flex;align-items:center;"><a href="{% url 'dashboard:team_dashboard' %}" class="btn btn-primary btn-lg">Team Board로 이동</a></div>
     </div>
 </div>
 {% endblock %}

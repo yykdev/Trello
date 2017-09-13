@@ -1,0 +1,38 @@
+{% load bootstrap3 %}
+<form action="{% url 'dashboard:card_detail' card_id %}" method="post" class="js-detail-card-form">
+    {% csrf_token %}
+    <div class="modal-body clearfix">
+        <div style="float: left;">
+            {% bootstrap_form form %}
+            <hr>
+            <div>
+                <div class="form-group">
+                    <label class="control-label">Add Comment</label>
+                </div>
+                <div class="form-group">
+                    <textarea name="comment" id="" cols="30" rows="10" class="form-control"></textarea>
+                </div>
+            </div>
+        </div>
+        <div style="width: 140px;height:500px;float: right;">
+            <div class="form-group">
+                <label class="control-label" style="width: 130px;">Add</label>
+            </div>
+            <div class="form-group">
+                <button type="button" style="width: 130px;" id="id_members" class="btn btn-default">Members</button>
+            </div>
+            <div class="form-group">
+                <button type="button" style="width: 130px;" id="id_labels" class="btn btn-default">Labels</button>
+            </div>
+            <div class="form-group">
+                <button type="button" style="width: 130px;" id="id_checklist" class="btn btn-default">Checklist</button>
+            </div>
+            <div class="form-group">
+                <button type="button" style="width: 130px;" id="id_dueDate" class="btn btn-default">DueDate</button>
+            </div>
+            <div class="form-group">
+                <button type="button" style="width: 130px;" id="id_attachment" class="btn btn-default">Attachment</button>
+            </div>
+        </div>
+    </div>
+</form>

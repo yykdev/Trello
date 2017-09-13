@@ -26,7 +26,7 @@ $( function() {
     });
 
     // 카드 생성
-    $("#modal_card").on("submit", ".js-create-card-form", function () {
+    $("#modal_card_create").on("submit", ".js-create-card-form", function () {
         var form = $(this);
         $.ajax({
             url: form.attr("action"),
@@ -36,15 +36,37 @@ $( function() {
             success: function (data) {
                 if (data.form_is_valid) {
                     $("#div_card_dashboard").html(data.html_cardlist_list);
-                    $("#modal_card").modal("hide");
+                    $("#modal_card_create").modal("hide");
                 }
                 else {
-                    $("#modal_card .modal-content").html(data.html_form);
+                    $("#modal_card_create .modal-content").html(data.html_form);
                 }
             }
         });
         return false;
     });
+
+
+    // 카드 디테일 생성
+    // $("#modal_card_detail").on("submit", ".js-detail-card-form", function () {
+    //     var form = $(this);
+    //     $.ajax({
+    //         url: form.attr("action"),
+    //         data: form.serialize(),
+    //         type: form.attr("method"),
+    //         dataType: 'json',
+    //         success: function (data) {
+    //             if (data.form_is_valid) {
+    //                 $("#div_card_dashboard").html(data.html_cardlist_list);
+    //                 $("#modal_card").modal("hide");
+    //             }
+    //             else {
+    //                 $("#modal_card .modal-content").html(data.html_form);
+    //             }
+    //         }
+    //     });
+    //     return false;
+    // });
 
     // $('.card_list_body').sortable({
     //     connectWith: '.card_list_body',
